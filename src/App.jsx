@@ -15,6 +15,7 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Chatbot from './components/Chatbot';
 import About from './components/About';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -41,6 +42,7 @@ function App() {
       
       {isModalOpen && <AppointmentModal onClose={closeModal} />}
       {!isModalOpen && <Chatbot />}
+      {!isModalOpen && <ScrollToTop />}
     </div>
   );
 }
