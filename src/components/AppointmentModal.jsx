@@ -3,27 +3,24 @@ import { X, CheckCircle, Calendar, MapPin, ChevronLeft, ChevronRight, User, Phon
 import logoVideo from '../assets/video_2026-08-11_12-31-26.mp4';
 import './AppointmentModal.css';
 
-const DEPARTMENTS = [
-  { id: 'paediatrics', name: 'Paediatrics', icon: '👶', doctor: 'Dr. Shefali', title: 'Paediatrician' },
-  { id: 'gynaecology', name: 'Gynaecology', icon: '🌸', doctor: 'Dr. Manu Sharma', title: 'Gynaecologist / Neonatologist' },
-  { id: 'fertility', name: 'Fertility Care', icon: '🌱', doctor: 'Dr. Aarti', title: 'Fertility Specialist' },
-  { id: 'child-dev', name: 'Child Development', icon: '🧸', doctor: 'Dr. Vikas', title: 'Developmental Pediatrician' }
+const DOCTORS = [
+  { id: 'manu', name: 'Dr. Manu Sharma', title: 'Neonatologist', degrees: 'MD - Pediatrics', avatar: 'https://i.pravatar.cc/150?u=manu' },
+  { id: 'shefali', name: 'Dr. Shefali Sharma', title: 'Obstetrician & Gynecologist', degrees: 'MD', avatar: 'https://i.pravatar.cc/150?u=shefali' },
+  { id: 'himani', name: 'Dr. Himani Adarsh', title: 'Child Development Consultant', degrees: 'MBBS, MD, DM, M.D. Psychiatry, D.M. Child and Adolescent Psychiatry', avatar: 'https://i.pravatar.cc/150?u=himani' },
+  { id: 'ritish', name: 'Dr. Ritish Saini', title: 'Paediatrician', degrees: '', avatar: 'https://i.pravatar.cc/150?u=ritish' }
 ];
 
 const TIME_SLOTS_MORNING = ['8:00AM - 9:30AM', '10:00AM - 11:30AM'];
 const TIME_SLOTS_EVENING = ['5:00PM - 6:30PM', '7:00PM - 8:30PM'];
 
 const AppointmentModal = ({ onClose }) => {
-  const [stage, setStage] = useState('animation'); // 'animation' -> 'form' -> 'success'
+  const [stage, setStage] = useState('animation');
   const [formStep, setFormStep] = useState(1);
-  
+  const [searchQuery, setSearchQuery] = useState('');
   const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    email: '',
-    department: '',
-    doctor: '',
-    doctorTitle: '',
+    name: '', phone: '', email: '',
+    department: '', doctor: '', doctorTitle: '',
+    appointmentType: '',
     date: new Date().toISOString().split('T')[0],
     time: ''
   });
@@ -31,20 +28,13 @@ const AppointmentModal = ({ onClose }) => {
 
   useEffect(() => {
     if (stage === 'animation') {
-      const timer = setTimeout(() => {
-        setStage('form');
-      }, 5000);
+      const timer = setTimeout(() => setStage('form'), 5000);
       return () => clearTimeout(timer);
     }
   }, [stage]);
 
-  const handleSelectDept = (dept) => {
-    setFormData(prev => ({ 
-      ...prev, 
-      department: dept.name, 
-      doctor: dept.doctor, 
-      doctorTitle: dept.title 
-    }));
+  const handleSelectDoctor = (doc, type) => {
+    setFormData(prev => ({ ...prev, doctor: doc.name, doctorTitle: doc.title, department: doc.title, appointmentType: type }));
     setFormStep(2);
   };
 
@@ -60,264 +50,250 @@ const AppointmentModal = ({ onClose }) => {
   };
 
   const handleNextToStep3 = () => {
-    if (!formData.time) {
-      setErrors({ time: 'Please select a time slot' });
-      return;
-    }
+    if (!formData.time) { setErrors({ time: 'Please select a time slot' }); return; }
     setFormStep(3);
   };
 
   const handleNextToStep4 = () => {
     let tempErrors = {};
-    if (!formData.name) tempErrors.name = "Name is required";
-    if (!formData.phone) tempErrors.phone = "Phone is required";
-    if (Object.keys(tempErrors).length > 0) {
-      setErrors(tempErrors);
-      return;
-    }
+    if (!formData.name) tempErrors.name = 'Name is required';
+    if (!formData.phone) tempErrors.phone = 'Phone is required';
+    if (Object.keys(tempErrors).length > 0) { setErrors(tempErrors); return; }
     setFormStep(4);
   };
 
-  const handleSubmit = () => {
-    setTimeout(() => {
-      setStage('success');
-    }, 800);
-  };
+  const handleSubmit = () => setTimeout(() => setStage('success'), 800);
 
-  // Helper to format date
   const getSelectedDayName = () => {
     if (!formData.date) return '';
-    const dateObj = new Date(formData.date);
-    return dateObj.toLocaleDateString('en-US', { weekday: 'long' });
+    return new Date(formData.date).toLocaleDateString('en-US', { weekday: 'long' });
   };
 
+  const filteredDoctors = DOCTORS.filter(doc =>
+    doc.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    doc.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
-    <div className={`appointment-modal-overlay ${stage}`}>
-      <button className="modal-close-btn" onClick={onClose} aria-label="Close">
-        <X size={28} />
-      </button>
+    <div className={`am-overlay ${stage}`}>
+      <button className="am-close-btn" onClick={onClose} aria-label="Close"><X size={22} /></button>
 
       {stage === 'animation' && (
-        <div className="logo-animation-container">
-          <video 
-            className="logo-video-anim" 
-            autoPlay 
-            muted 
-            playsInline 
-            onEnded={() => setStage('form')}
-          >
+        <div className="am-animation-wrap">
+          <video className="am-logo-video" autoPlay muted playsInline onEnded={() => setStage('form')}>
             <source src={logoVideo} type="video/mp4" />
           </video>
         </div>
       )}
 
       {stage === 'form' && (
-        <div className="appointment-layout">
-          {/* LEFT COLUMN: Booking Wizard */}
-          <div className="booking-wizard">
-            
-            {/* Stepper Header */}
-            <div className="stepper-header">
-              {[1, 2, 3, 4].map((step) => (
-                <div key={step} className={`step-indicator ${formStep >= step ? 'active' : ''}`}>
-                  <div className="step-circle">{step}</div>
-                  <div className="step-label">Step {step}</div>
-                  {step < 4 && <div className="step-connector"></div>}
-                </div>
-              ))}
-            </div>
+        <div className="am-shell">
 
-            {/* STEP 1: Select Service/Doctor */}
-            {formStep === 1 && (
-              <div className="step-content">
-                <h3 className="step-title">Select a Service</h3>
-                <div className="dept-grid">
-                  {DEPARTMENTS.map(dept => (
-                    <div key={dept.id} className="dept-card" onClick={() => handleSelectDept(dept)}>
-                      <span className="dept-icon">{dept.icon}</span>
-                      <h4>{dept.name}</h4>
-                      <p>{dept.doctor}</p>
+          {/* ── HEADER ── */}
+          <div className="am-header">
+            <div className="am-header-logo">
+              <svg viewBox="0 0 24 24" fill="white" width="20" height="20">
+                <circle cx="12" cy="12" r="10" />
+              </svg>
+            </div>
+            <span className="am-header-title">Chikitssa Arogyaa : A complete mother and child clinic</span>
+          </div>
+
+          {/* ── BODY ── */}
+          <div className="am-body">
+
+            {/* LEFT: Wizard */}
+            <div className="am-wizard">
+
+              {/* Stepper for step > 1 */}
+              {formStep > 1 && (
+                <div className="am-stepper">
+                  {[2, 3, 4].map((step) => (
+                    <div key={step} className={`am-step ${formStep >= step ? 'am-step--done' : ''} ${formStep === step ? 'am-step--active' : ''}`}>
+                      <div className="am-step-circle">{formStep > step ? <CheckCircle size={16} /> : step}</div>
+                      <div className="am-step-label">Step {step}</div>
+                      {step < 4 && <div className="am-step-line"><div className="am-step-line-fill" style={{ width: formStep > step ? '100%' : '0%' }} /></div>}
                     </div>
                   ))}
                 </div>
-              </div>
-            )}
+              )}
 
-            {/* STEP 2: Date & Time (Mimicking Screenshot) */}
-            {formStep === 2 && (
-              <div className="step-content">
-                <div className="doctor-profile-card">
-                  <div className="doctor-avatar">
-                    <User size={32} color="#0F5C5E" />
+              {/* ── STEP 1: Doctor List ── */}
+              {formStep === 1 && (
+                <div className="am-step-content">
+                  <div className="am-search-wrap">
+                    <input
+                      type="text"
+                      placeholder="Search"
+                      value={searchQuery}
+                      onChange={e => setSearchQuery(e.target.value)}
+                      className="am-search-input"
+                    />
                   </div>
-                  <h4 className="doctor-name">{formData.doctor || 'Dr. Manu Sharma'}</h4>
-                  <p className="doctor-title">{formData.doctorTitle || 'Neonatologist'}</p>
-                </div>
 
-                <div className="schedule-info">
-                  <h5 className="schedule-title">Working Days</h5>
-                  <p className="schedule-text">Morning: Mon/Tue/Wed/Thu/Fri/Sat/Sun</p>
-                  <p className="schedule-text">Evening: Mon/Tue/Wed/Thu/Fri/Sat</p>
+                  <div className="am-doctor-list">
+                    {filteredDoctors.map(doc => (
+                      <div key={doc.id} className="am-doctor-card">
+                        <div className="am-doctor-info">
+                          <div className="am-doctor-avatar">
+                            <img src={doc.avatar} alt={doc.name} />
+                          </div>
+                          <div className="am-doctor-text">
+                            <div className="am-doctor-name">{doc.name}</div>
+                            <div className="am-doctor-title">{doc.title}</div>
+                            {doc.degrees && <div className="am-doctor-degrees">Degrees: {doc.degrees}</div>}
+                          </div>
+                        </div>
+                        <div className="am-doctor-actions">
+                          <button className="am-appt-btn" onClick={() => handleSelectDoctor(doc, 'In-clinic')}>In-clinic Appointment</button>
+                          <button className="am-appt-btn" onClick={() => handleSelectDoctor(doc, 'Video')}>Video Consultation</button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
+              )}
 
-                <div className="date-selection-area">
-                  <p className="selected-day">Selected Day: <strong>{getSelectedDayName()}</strong></p>
-                  <p className="date-format-hint">Date Format: MM/DD/YYYY</p>
-                  
-                  <div className="date-time-row">
-                    <div className="custom-date-input">
-                      <input 
-                        type="date" 
-                        name="date" 
-                        value={formData.date} 
-                        onChange={handleChange}
-                        min={new Date().toISOString().split('T')[0]}
-                      />
-                      <div className="calendar-btn">
-                        <Calendar size={18} color="white" />
+              {/* ── STEP 2: Date & Time ── */}
+              {formStep === 2 && (
+                <div className="am-step-content">
+                  <div className="am-doctor-profile-card">
+                    <div className="am-dp-avatar"><User size={30} color="#0F5C5E" /></div>
+                    <div className="am-dp-name">{formData.doctor} <span className="am-dp-type">({formData.appointmentType})</span></div>
+                    <div className="am-dp-title">{formData.doctorTitle}</div>
+                  </div>
+
+                  <div className="am-schedule-info">
+                    <div className="am-schedule-label">Working Days</div>
+                    <div className="am-schedule-text">Morning: Mon / Tue / Wed / Thu / Fri / Sat / Sun</div>
+                    <div className="am-schedule-text">Evening: Mon / Tue / Wed / Thu / Fri / Sat</div>
+                  </div>
+
+                  <div className="am-date-area">
+                    <div className="am-day-selected">Selected Day: <strong>{getSelectedDayName()}</strong></div>
+                    <div className="am-date-hint">Date Format: MM/DD/YYYY</div>
+                    <div className="am-date-time-row">
+                      <div className="am-date-input-wrap">
+                        <input type="date" name="date" value={formData.date} onChange={handleChange} min={new Date().toISOString().split('T')[0]} className="am-date-input" />
+                        <div className="am-cal-btn"><Calendar size={16} color="white" /></div>
+                      </div>
+                      <div className="am-time-wrap">
+                        <span className="am-time-label">Select:</span>
+                        <div className="am-time-pills">
+                          {[...TIME_SLOTS_MORNING, ...TIME_SLOTS_EVENING].map(time => (
+                            <button key={time} className={`am-time-pill ${formData.time === time ? 'am-time-pill--selected' : ''}`} onClick={() => handleTimeSelect(time)}>{time}</button>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                    
-                    <div className="time-selection">
-                      <span className="select-label">Select:</span>
-                      <div className="time-pills-container">
-                        {TIME_SLOTS_MORNING.map(time => (
-                          <button 
-                            key={time} 
-                            className={`docterz-time-pill ${formData.time === time ? 'selected' : ''}`}
-                            onClick={() => handleTimeSelect(time)}
-                          >
-                            {time}
-                          </button>
-                        ))}
-                        {TIME_SLOTS_EVENING.map(time => (
-                          <button 
-                            key={time} 
-                            className={`docterz-time-pill ${formData.time === time ? 'selected' : ''}`}
-                            onClick={() => handleTimeSelect(time)}
-                          >
-                            {time}
-                          </button>
-                        ))}
-                      </div>
+                    {errors.time && <span className="am-error">{errors.time}</span>}
+                  </div>
+
+                  <div className="am-actions">
+                    <button className="am-btn-back" onClick={() => setFormStep(1)}>Back</button>
+                    <button className="am-btn-proceed" onClick={handleNextToStep3}>Proceed</button>
+                  </div>
+                </div>
+              )}
+
+              {/* ── STEP 3: Patient Info ── */}
+              {formStep === 3 && (
+                <div className="am-step-content">
+                  <div className="am-step-title">Patient Details</div>
+                  <div className="am-form-group">
+                    <label>Full Name *</label>
+                    <input type="text" name="name" value={formData.name} onChange={handleChange} className={errors.name ? 'am-input am-input--error' : 'am-input'} />
+                    {errors.name && <span className="am-error">{errors.name}</span>}
+                  </div>
+                  <div className="am-form-group">
+                    <label>Phone Number *</label>
+                    <input type="tel" name="phone" value={formData.phone} onChange={handleChange} className={errors.phone ? 'am-input am-input--error' : 'am-input'} />
+                    {errors.phone && <span className="am-error">{errors.phone}</span>}
+                  </div>
+                  <div className="am-form-group">
+                    <label>Email Address</label>
+                    <input type="email" name="email" value={formData.email} onChange={handleChange} className="am-input" />
+                  </div>
+                  <div className="am-actions">
+                    <button className="am-btn-back" onClick={() => setFormStep(2)}>Back</button>
+                    <button className="am-btn-proceed" onClick={handleNextToStep4}>Proceed</button>
+                  </div>
+                </div>
+              )}
+
+              {/* ── STEP 4: Confirm ── */}
+              {formStep === 4 && (
+                <div className="am-step-content">
+                  <div className="am-step-title">Confirm Appointment</div>
+                  <div className="am-confirm-box">
+                    <p><strong>Doctor:</strong> {formData.doctor}</p>
+                    <p><strong>Type:</strong> {formData.appointmentType}</p>
+                    <p><strong>Specialty:</strong> {formData.department}</p>
+                    <p><strong>Date:</strong> {formData.date}</p>
+                    <p><strong>Time:</strong> {formData.time}</p>
+                    <p><strong>Patient:</strong> {formData.name}</p>
+                    <p><strong>Phone:</strong> {formData.phone}</p>
+                  </div>
+                  <div className="am-actions">
+                    <button className="am-btn-back" onClick={() => setFormStep(3)}>Back</button>
+                    <button className="am-btn-proceed" onClick={handleSubmit}>Confirm Booking</button>
+                  </div>
+                </div>
+              )}
+
+            </div>{/* end am-wizard */}
+
+            {/* RIGHT: Contact Sidebar */}
+            <div className="am-sidebar">
+              <div className="am-sidebar-card">
+                <div className="am-sidebar-header">Contact Us</div>
+
+                <div className="am-gallery">
+                  <button className="am-gallery-btn am-gallery-btn--prev"><ChevronLeft size={20} color="white" /></button>
+                  <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Clinic" className="am-gallery-img" />
+                  <button className="am-gallery-btn am-gallery-btn--next"><ChevronRight size={20} color="white" /></button>
+                  <div className="am-gallery-dots">
+                    <span className="am-dot am-dot--active"></span>
+                    <span className="am-dot"></span>
+                    <span className="am-dot"></span>
+                  </div>
+                </div>
+
+                <div className="am-contact-info">
+                  <div className="am-contact-row">
+                    <MapPin size={20} color="#4878a6" style={{ flexShrink: 0, marginTop: 2 }} />
+                    <div>
+                      <div className="am-contact-clinic-name">Chikitssa Arogyaa : A complete mother and child clinic</div>
+                      <div className="am-contact-address">House No 1048, Sector - 37 B, Chandigarh, India, 160036</div>
                     </div>
                   </div>
-                  {errors.time && <span className="error-text">{errors.time}</span>}
+                  <div className="am-contact-divider"></div>
+                  <div className="am-contact-row">
+                    <Phone size={20} color="#4878a6" style={{ flexShrink: 0 }} />
+                    <div>
+                      <div className="am-contact-label">Contact No</div>
+                      <div className="am-contact-number">9915161048</div>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="step-actions">
-                  <button className="btn btn-secondary" onClick={() => setFormStep(1)}>Back</button>
-                  <button className="btn btn-primary btn-proceed" onClick={handleNextToStep3}>Proceed</button>
+                <div className="am-store-badges">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" className="am-badge" />
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="App Store" className="am-badge" />
                 </div>
               </div>
-            )}
-
-            {/* STEP 3: Patient Info */}
-            {formStep === 3 && (
-              <div className="step-content">
-                <h3 className="step-title">Patient Details</h3>
-                <div className="form-group">
-                  <label>Full Name *</label>
-                  <input type="text" name="name" value={formData.name} onChange={handleChange} className={errors.name ? 'error' : ''} />
-                  {errors.name && <span className="error-text">{errors.name}</span>}
-                </div>
-                <div className="form-group mt-3">
-                  <label>Phone Number *</label>
-                  <input type="tel" name="phone" value={formData.phone} onChange={handleChange} className={errors.phone ? 'error' : ''} />
-                  {errors.phone && <span className="error-text">{errors.phone}</span>}
-                </div>
-                <div className="form-group mt-3">
-                  <label>Email Address</label>
-                  <input type="email" name="email" value={formData.email} onChange={handleChange} />
-                </div>
-                
-                <div className="step-actions">
-                  <button className="btn btn-secondary" onClick={() => setFormStep(2)}>Back</button>
-                  <button className="btn btn-primary btn-proceed" onClick={handleNextToStep4}>Proceed</button>
-                </div>
-              </div>
-            )}
-
-            {/* STEP 4: Confirm */}
-            {formStep === 4 && (
-              <div className="step-content">
-                <h3 className="step-title">Confirm Appointment</h3>
-                <div className="confirmation-summary">
-                  <p><strong>Doctor:</strong> {formData.doctor}</p>
-                  <p><strong>Service:</strong> {formData.department}</p>
-                  <p><strong>Date:</strong> {formData.date}</p>
-                  <p><strong>Time:</strong> {formData.time}</p>
-                  <p><strong>Patient:</strong> {formData.name}</p>
-                  <p><strong>Phone:</strong> {formData.phone}</p>
-                </div>
-                
-                <div className="step-actions">
-                  <button className="btn btn-secondary" onClick={() => setFormStep(3)}>Back</button>
-                  <button className="btn btn-primary btn-proceed" onClick={handleSubmit}>Confirm Booking</button>
-                </div>
-              </div>
-            )}
-
-          </div>
-
-          {/* RIGHT COLUMN: Contact Sidebar */}
-          <div className="contact-sidebar">
-            <div className="contact-header">
-              <h4>Contact Us</h4>
-              <p className="contact-subtitle">We're here to help you</p>
             </div>
-            
-            <div className="sidebar-scroll-content">
-              <div className="clinic-gallery-wrapper">
-                <div className="clinic-gallery">
-                  <button className="gallery-nav prev"><ChevronLeft size={24} color="white" /></button>
-                  <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Clinic Interior" />
-                  <button className="gallery-nav next"><ChevronRight size={24} color="white" /></button>
-                  <div className="gallery-dots">
-                    <span className="dot active"></span>
-                    <span className="dot"></span>
-                    <span className="dot"></span>
-                  </div>
-                </div>
-              </div>
 
-              <div className="contact-cards-container">
-                <div className="contact-card">
-                  <div className="icon-wrapper bg-soft-teal">
-                    <MapPin size={20} color="#003B40" />
-                  </div>
-                  <div className="contact-card-content">
-                    <h5 className="clinic-name">Chikitssa Arogyaa</h5>
-                    <p className="clinic-desc">A complete mother and child clinic</p>
-                    <p className="clinic-address">House No 1048, Sector - 37 B, Chandigarh, India, 160036</p>
-                  </div>
-                </div>
-
-                <div className="contact-card">
-                  <div className="icon-wrapper bg-soft-blue">
-                    <Phone size={20} color="#4A90E2" />
-                  </div>
-                  <div className="contact-card-content">
-                    <h5 className="clinic-name">Call Us</h5>
-                    <p className="contact-number">+91 99151 61048</p>
-                  </div>
-                </div>
-              </div>
-
-
-            </div>
-          </div>
+          </div>{/* end am-body */}
         </div>
       )}
 
       {stage === 'success' && (
-        <div className="success-container animate-fade-up">
-          <div className="success-icon-wrapper">
-            <CheckCircle size={64} className="success-icon" />
-          </div>
+        <div className="am-success">
+          <div className="am-success-icon"><CheckCircle size={60} color="#0F5C5E" /></div>
           <h2>Booking Confirmed!</h2>
-          <p>Thank you, {formData.name}. Your appointment for <strong>{formData.department}</strong> on <strong>{formData.date} at {formData.time}</strong> has been received.</p>
-          <button className="btn btn-outline mt-4" onClick={onClose}>Return to Homepage</button>
+          <p>Thank you, <strong>{formData.name}</strong>. Your {formData.appointmentType} appointment for <strong>{formData.doctor}</strong> on <strong>{formData.date}</strong> at <strong>{formData.time}</strong> has been received.</p>
+          <button className="am-btn-proceed" style={{ marginTop: 24 }} onClick={onClose}>Return to Homepage</button>
         </div>
       )}
     </div>
