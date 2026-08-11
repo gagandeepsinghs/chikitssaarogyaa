@@ -41,29 +41,76 @@ const Navbar = ({ onBookAppointment }) => {
   ];
 
   return (
-    <header className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
-      <div className="container navbar-container">
-        <div className="logo-container">
-          <a href="#" className="logo">
-            <img src={logo} alt="Chikitssa Arogyaa" className="navbar-logo-img" />
-          </a>
+    <>
+      <header className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
+        <div className="container navbar-container">
+          <div className="logo-container">
+            <a href="#" className="logo">
+              <img src={logo} alt="Chikitssa Arogyaa" className="navbar-logo-img" />
+            </a>
+          </div>
+
+          {/* Desktop Nav */}
+          <nav className="desktop-nav">
+            <ul className="nav-links">
+              {navLinks.map((link) => (
+                <li key={link.name} className={`nav-item ${link.dropdown ? 'has-dropdown' : ''}`}>
+                  <a href={link.href} className="nav-link">
+                    {link.name}
+                    {link.dropdown && <ChevronDown size={16} className="dropdown-icon" />}
+                  </a>
+                  
+                  {link.dropdown && (
+                    <ul className="dropdown-menu">
+                      {link.dropdown.map((dropItem) => (
+                        <li key={dropItem.name}>
+                          <a href={dropItem.href} className="dropdown-link">{dropItem.name}</a>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              ))}
+            </ul>
+            <button className="btn btn-primary nav-cta" onClick={onBookAppointment}>
+              Book an Appointment
+            </button>
+          </nav>
+
+          {/* Mobile Nav Toggle */}
+          <button 
+            className="mobile-menu-btn" 
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
         </div>
 
-        {/* Desktop Nav */}
-        <nav className="desktop-nav">
-          <ul className="nav-links">
+        {/* Mobile Menu */}
+        <div className={`mobile-menu ${isMobileMenuOpen ? 'open' : ''}`}>
+          <ul className="mobile-nav-links">
             {navLinks.map((link) => (
-              <li key={link.name} className={`nav-item ${link.dropdown ? 'has-dropdown' : ''}`}>
-                <a href={link.href} className="nav-link">
+              <li key={link.name} className="mobile-nav-item">
+                <a 
+                  href={link.href} 
+                  className="mobile-nav-link"
+                  onClick={() => !link.dropdown && setIsMobileMenuOpen(false)}
+                >
                   {link.name}
                   {link.dropdown && <ChevronDown size={16} className="dropdown-icon" />}
                 </a>
-                
                 {link.dropdown && (
-                  <ul className="dropdown-menu">
+                  <ul className="mobile-dropdown-menu">
                     {link.dropdown.map((dropItem) => (
                       <li key={dropItem.name}>
-                        <a href={dropItem.href} className="dropdown-link">{dropItem.name}</a>
+                        <a 
+                          href={dropItem.href} 
+                          className="mobile-dropdown-link"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          {dropItem.name}
+                        </a>
                       </li>
                     ))}
                   </ul>
@@ -71,53 +118,8 @@ const Navbar = ({ onBookAppointment }) => {
               </li>
             ))}
           </ul>
-          <button className="btn btn-primary nav-cta" onClick={onBookAppointment}>
-            Book an Appointment
-          </button>
-        </nav>
-
-        {/* Mobile Nav Toggle */}
-        <button 
-          className="mobile-menu-btn" 
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label="Toggle menu"
-        >
-          {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
-      </div>
-
-      {/* Mobile Menu */}
-      <div className={`mobile-menu ${isMobileMenuOpen ? 'open' : ''}`}>
-        <ul className="mobile-nav-links">
-          {navLinks.map((link) => (
-            <li key={link.name} className="mobile-nav-item">
-              <a 
-                href={link.href} 
-                className="mobile-nav-link"
-                onClick={() => !link.dropdown && setIsMobileMenuOpen(false)}
-              >
-                {link.name}
-                {link.dropdown && <ChevronDown size={16} className="dropdown-icon" />}
-              </a>
-              {link.dropdown && (
-                <ul className="mobile-dropdown-menu">
-                  {link.dropdown.map((dropItem) => (
-                    <li key={dropItem.name}>
-                      <a 
-                        href={dropItem.href} 
-                        className="mobile-dropdown-link"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                      >
-                        {dropItem.name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </li>
-          ))}
-        </ul>
-      </div>
+        </div>
+      </header>
 
       {/* Sticky Bottom CTA for Mobile */}
       <div className="mobile-bottom-cta">
@@ -126,7 +128,7 @@ const Navbar = ({ onBookAppointment }) => {
           Book Appointment
         </button>
       </div>
-    </header>
+    </>
   );
 };
 

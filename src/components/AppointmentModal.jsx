@@ -76,11 +76,6 @@ const AppointmentModal = ({ onClose }) => {
 
   return (
     <div className={`am-overlay ${stage}`}>
-      <button className="am-back-btn" onClick={onClose} aria-label="Back to Homepage">
-        <ChevronLeft size={16} strokeWidth={2.5} />
-        <span>Back to Home</span>
-      </button>
-
       {stage === 'animation' && (
         <div className="am-animation-wrap">
           <div className="am-animation-bg"></div>
@@ -102,24 +97,31 @@ const AppointmentModal = ({ onClose }) => {
 
           {/* ── HEADER ── */}
           <div className="am-header">
-            <div className="am-header-logo">
-              <svg viewBox="0 0 100 100" fill="none" stroke="white" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" className="am-header-logo-svg">
-                {/* Mother embrace circle */}
-                <path d="M82 32 C88 42 88 58 82 68 C72 82 55 88 40 82 C22 72 15 50 25 32 C32 20 45 15 58 17" />
-                {/* Mother's face profile & head */}
-                <path d="M44 32 C35 40 33 52 37 62 C41 70 50 76 60 74" />
-                <path d="M44 32 C50 30 55 35 53 41 C51 46 44 49 41 52" />
-                {/* Baby's face profile & head */}
-                <path d="M64 54 C69 54 73 58 71 63 C69 67 63 69 59 66" />
-                {/* Hand/flower support at bottom */}
-                <path d="M50 68 C52 73 57 75 62 72" />
-                <path d="M50 68 C48 73 43 75 38 72" />
-              </svg>
+            <div className="am-header-brand">
+              <div className="am-header-logo">
+                <svg viewBox="0 0 100 100" fill="none" stroke="white" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" className="am-header-logo-svg">
+                  {/* Mother embrace circle */}
+                  <path d="M82 32 C88 42 88 58 82 68 C72 82 55 88 40 82 C22 72 15 50 25 32 C32 20 45 15 58 17" />
+                  {/* Mother's face profile & head */}
+                  <path d="M44 32 C35 40 33 52 37 62 C41 70 50 76 60 74" />
+                  <path d="M44 32 C50 30 55 35 53 41 C51 46 44 49 41 52" />
+                  {/* Baby's face profile & head */}
+                  <path d="M64 54 C69 54 73 58 71 63 C69 67 63 69 59 66" />
+                  {/* Hand/flower support at bottom */}
+                  <path d="M50 68 C52 73 57 75 62 72" />
+                  <path d="M50 68 C48 73 43 75 38 72" />
+                </svg>
+              </div>
+              <span className="am-header-title">
+                <span className="am-brand-name">Chikitssa Arogyaa</span>
+                <span className="am-brand-tagline"> : A complete mother and child clinic</span>
+              </span>
             </div>
-            <span className="am-header-title">
-              <span className="am-brand-name">Chikitssa Arogyaa</span>
-              <span className="am-brand-tagline"> : A complete mother and child clinic</span>
-            </span>
+
+            <button className="am-back-btn" onClick={onClose} aria-label="Back to Homepage">
+              <ChevronLeft size={16} strokeWidth={2.5} />
+              <span>Back to Home</span>
+            </button>
           </div>
 
           {/* ── BODY ── */}

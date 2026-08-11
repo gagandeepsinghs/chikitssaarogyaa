@@ -14,6 +14,7 @@ import AppointmentModal from './components/AppointmentModal';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Chatbot from './components/Chatbot';
+import About from './components/About';
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,6 +27,7 @@ function App() {
       <Navbar onBookAppointment={openModal} />
       <Hero onBookAppointment={openModal} />
       <TrustStrip />
+      <About />
       <Specialities />
       <WhyChooseUs />
       <Doctors onBookAppointment={openModal} />

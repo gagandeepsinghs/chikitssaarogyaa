@@ -11,14 +11,14 @@ const Certifications = () => {
       id: 1,
       title: "Fellowship in Neonatology",
       desc: "Dr. Manu Sharma — Fellowship certification in Neonatology.",
-      image: "https://chikitssaarogyaa.com/newdesign/assets/img/cer1.jpg",
+      image: "https://chikitssaarogyaa.com/newdesign/assets/img/cer2.jpg",
       pdf: "https://chikitssaarogyaa.com/newdesign/assets/img/Dr-Manu-Sharma-fellowship-in-Neonatology.pdf"
     },
     {
       id: 2,
       title: "CPD Certificate",
       desc: "Dr. Manu Sharma — Continuing Professional Development certificate.",
-      image: "https://chikitssaarogyaa.com/newdesign/assets/img/cer2.jpg",
+      image: "https://chikitssaarogyaa.com/newdesign/assets/img/cer1.jpg",
       pdf: "https://chikitssaarogyaa.com/newdesign/assets/img/Dr-Manu-Sharma-CPD-Certificate.pdf"
     },
     {
