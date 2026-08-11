@@ -20,6 +20,7 @@ const Chatbot = () => {
   const [messages, setMessages] = useState([INITIAL_MESSAGE]);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [showFAB, setShowFAB] = useState(true);
   const messagesEndRef = useRef(null);
 
   const toggleChat = () => setIsOpen(prev => !prev);
@@ -27,6 +28,18 @@ const Chatbot = () => {
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY < 300) {
+        setShowFAB(true);
+      } else {
+        setShowFAB(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     scrollToBottom();
@@ -96,7 +109,7 @@ const Chatbot = () => {
   };
 
   return (
-    <div className="chatbot-wrapper">
+    <div className={`chatbot-wrapper ${(!showFAB && !isOpen) ? 'chatbot-hidden' : ''}`}>
       {/* Floating Action Button */}
       <button 
         className={`chatbot-fab ${isOpen ? 'is-open' : ''}`} 
