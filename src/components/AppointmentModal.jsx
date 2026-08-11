@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, CheckCircle, Calendar, MapPin, ChevronLeft, ChevronRight, User, Phone } from 'lucide-react';
+import { X, CheckCircle, Calendar, MapPin, ChevronLeft, ChevronRight, User, Phone, Search, Video, Building } from 'lucide-react';
 import logoVideo from '../assets/video_2026-08-11_12-31-26.mp4';
 import './AppointmentModal.css';
 
@@ -28,7 +28,7 @@ const AppointmentModal = ({ onClose }) => {
 
   useEffect(() => {
     if (stage === 'animation') {
-      const timer = setTimeout(() => setStage('form'), 5000);
+      const timer = setTimeout(() => setStage('form'), 7500);
       return () => clearTimeout(timer);
     }
   }, [stage]);
@@ -76,11 +76,22 @@ const AppointmentModal = ({ onClose }) => {
 
   return (
     <div className={`am-overlay ${stage}`}>
-      <button className="am-close-btn" onClick={onClose} aria-label="Close"><X size={22} /></button>
+      <button className="am-back-btn" onClick={onClose} aria-label="Back to Homepage">
+        <ChevronLeft size={16} strokeWidth={2.5} />
+        <span>Back to Home</span>
+      </button>
 
       {stage === 'animation' && (
         <div className="am-animation-wrap">
-          <video className="am-logo-video" autoPlay muted playsInline onEnded={() => setStage('form')}>
+          <div className="am-animation-bg"></div>
+          <video 
+            className="am-logo-video" 
+            autoPlay 
+            muted 
+            playsInline 
+            onPlay={(e) => { e.target.playbackRate = 0.7; }}
+            onEnded={() => setStage('form')}
+          >
             <source src={logoVideo} type="video/mp4" />
           </video>
         </div>
@@ -122,21 +133,28 @@ const AppointmentModal = ({ onClose }) => {
               {formStep === 1 && (
                 <div className="am-step-content">
                   <div className="am-search-wrap">
-                    <input
-                      type="text"
-                      placeholder="Search"
-                      value={searchQuery}
-                      onChange={e => setSearchQuery(e.target.value)}
-                      className="am-search-input"
-                    />
+                    <div className="am-search-container">
+                      <Search size={18} className="am-search-icon" />
+                      <input
+                        type="text"
+                        placeholder="Search by specialist or name..."
+                        value={searchQuery}
+                        onChange={e => setSearchQuery(e.target.value)}
+                        className="am-search-input"
+                      />
+                    </div>
                   </div>
 
                   <div className="am-doctor-list">
-                    {filteredDoctors.map(doc => (
-                      <div key={doc.id} className="am-doctor-card">
+                    {filteredDoctors.map((doc, index) => (
+                      <div 
+                        key={doc.id} 
+                        className="am-doctor-card"
+                        style={{ animationDelay: `${index * 80}ms` }}
+                      >
                         <div className="am-doctor-info">
                           <div className="am-doctor-avatar">
-                            <img src={doc.avatar} alt={doc.name} />
+                            <img src={doc.avatar} alt={doc.name} className="am-doctor-img" />
                           </div>
                           <div className="am-doctor-text">
                             <div className="am-doctor-name">{doc.name}</div>
@@ -145,8 +163,14 @@ const AppointmentModal = ({ onClose }) => {
                           </div>
                         </div>
                         <div className="am-doctor-actions">
-                          <button className="am-appt-btn" onClick={() => handleSelectDoctor(doc, 'In-clinic')}>In-clinic Appointment</button>
-                          <button className="am-appt-btn" onClick={() => handleSelectDoctor(doc, 'Video')}>Video Consultation</button>
+                          <button className="am-appt-btn" onClick={() => handleSelectDoctor(doc, 'In-clinic')}>
+                            <Building size={14} />
+                            <span>In-clinic Appointment</span>
+                          </button>
+                          <button className="am-appt-btn" onClick={() => handleSelectDoctor(doc, 'Video')}>
+                            <Video size={14} />
+                            <span>Video Consultation</span>
+                          </button>
                         </div>
                       </div>
                     ))}

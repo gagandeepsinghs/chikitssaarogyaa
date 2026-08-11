@@ -25,27 +25,38 @@
 }
 
 /* ─────────────────────────────────────────
-   CLOSE BUTTON
+   BACK BUTTON (HIGHLIGHTED)
 ───────────────────────────────────────── */
-.am-close-btn {
+.am-back-btn {
   position: fixed;
-  top: 20px;
-  right: 20px;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: #fff;
-  border: 1px solid #ddd;
-  color: #0F5C5E;
+  top: 22px;
+  right: 40px;
+  padding: 10px 20px;
+  border-radius: 30px;
+  background: #0F5C5E;
+  color: #fff;
+  border: none;
+  font-size: 13.5px;
+  font-weight: 600;
   cursor: pointer;
   z-index: 1100;
   display: flex;
-  justify-content: center;
   align-items: center;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  transition: all 0.2s ease;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 15px rgba(15, 92, 94, 0.25);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.am-close-btn:hover { transform: scale(1.1); color: #c0392b; }
+
+.am-back-btn:hover {
+  background: #157e80;
+  transform: translateY(-1.5px);
+  box-shadow: 0 6px 20px rgba(15, 92, 94, 0.35);
+}
+
+.am-back-btn:active {
+  transform: translateY(0);
+}
 
 /* ─────────────────────────────────────────
    VIDEO ANIMATION
@@ -56,11 +67,24 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #FAFBF9;
+}
+.am-animation-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.12;
+  z-index: 1;
 }
 .am-logo-video {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  position: relative;
+  z-index: 2;
+  mix-blend-mode: multiply;
 }
 
 /* ─────────────────────────────────────────
@@ -215,29 +239,69 @@
 
 /* ─── Search ─── */
 .am-search-wrap {
-  margin-bottom: 8px;
+  margin-bottom: 12px;
+}
+
+.am-search-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 4px 16px;
+  max-width: 340px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
+}
+
+.am-search-container:focus-within {
+  background: #fff;
+  border-color: #0F5C5E;
+  box-shadow: 0 0 0 3px rgba(15, 92, 94, 0.08);
+}
+
+.am-search-icon {
+  color: #94a3b8;
+  transition: color 0.25s ease;
+  flex-shrink: 0;
+}
+
+.am-search-container:focus-within .am-search-icon {
+  color: #0F5C5E;
 }
 
 .am-search-input {
-  width: 280px;
-  max-width: 100%;
   border: none;
-  border-bottom: 1.5px solid #d1d5db;
-  padding: 8px 4px;
-  font-size: 15px;
-  color: #374151;
   background: transparent;
+  padding: 8px 0;
+  font-size: 14.5px;
+  color: #1f2937;
   outline: none;
-  transition: border-color 0.2s;
+  width: 100%;
+  box-sizing: border-box;
 }
-.am-search-input::placeholder { color: #adb5bd; }
-.am-search-input:focus { border-bottom-color: #4878a6; }
+
+.am-search-input::placeholder {
+  color: #94a3b8;
+}
 
 /* ─── Doctor Cards ─── */
 .am-doctor-list {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 18px;
+}
+
+@keyframes amFadeUpCard {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .am-doctor-card {
@@ -245,36 +309,56 @@
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  padding: 20px 24px;
+  padding: 22px 28px;
   background: #fff;
   border: 1px solid #e5e7eb;
-  border-radius: 16px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  transition: box-shadow 0.2s ease;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  opacity: 0;
+  animation: amFadeUpCard 0.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+  box-sizing: border-box;
 }
-.am-doctor-card:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.08); }
+
+.am-doctor-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(15, 92, 94, 0.08);
+  border-color: #0F5C5E;
+}
 
 .am-doctor-info {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 22px;
   flex: 1;
 }
 
 .am-doctor-avatar {
-  width: 76px;
-  height: 76px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   overflow: hidden;
-  border: 1px solid #e5e7eb;
+  border: 2px solid #e5e7eb;
   flex-shrink: 0;
   background: #f3f4f6;
+  transition: all 0.3s ease;
 }
-.am-doctor-avatar img {
+
+.am-doctor-card:hover .am-doctor-avatar {
+  border-color: #0F5C5E;
+  box-shadow: 0 0 0 4px rgba(15, 92, 94, 0.08);
+}
+
+.am-doctor-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+  transition: transform 0.35s ease;
+}
+
+.am-doctor-card:hover .am-doctor-img {
+  transform: scale(1.08);
 }
 
 .am-doctor-text {
@@ -285,16 +369,18 @@
 }
 
 .am-doctor-name {
-  font-size: 18px;
+  font-size: 19px;
   font-weight: 600;
   color: #1f2937;
   margin: 0;
 }
+
 .am-doctor-title {
-  font-size: 13px;
+  font-size: 13.5px;
   color: #6b7280;
   margin: 0;
 }
+
 .am-doctor-degrees {
   font-size: 12px;
   color: #9ca3af;
@@ -305,25 +391,40 @@
 .am-doctor-actions {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
   flex-shrink: 0;
 }
 
 .am-appt-btn {
-  width: 185px;
-  padding: 9px 16px;
+  width: 200px;
+  padding: 10px 18px;
   background: #5c85ad;
   color: #fff;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  text-align: center;
-  transition: background 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 4px rgba(92, 133, 173, 0.15);
   white-space: nowrap;
+  box-sizing: border-box;
 }
-.am-appt-btn:hover { background: #4878a6; }
+
+.am-appt-btn:hover {
+  background: #4878a6;
+  transform: translateY(-1.5px);
+  box-shadow: 0 4px 8px rgba(72, 120, 166, 0.25);
+}
+
+.am-appt-btn:active {
+  transform: translateY(0);
+}
+
 
 /* ─── Doctor Profile (Step 2) ─── */
 .am-doctor-profile-card {
