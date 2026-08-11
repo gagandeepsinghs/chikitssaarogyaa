@@ -38,7 +38,7 @@ function App() {
       <Footer />
       
       {isModalOpen && <AppointmentModal onClose={closeModal} />}
-      <Chatbot />
+      {!isModalOpen && <Chatbot />}
     </div>
   );
 }
