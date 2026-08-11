@@ -105,12 +105,12 @@
 .am-header {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
   padding: 16px 40px;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1.5px solid #f1f5f9;
   background: #fff;
   flex-shrink: 0;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
   z-index: 10;
 }
 
@@ -123,14 +123,34 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(237, 113, 77, 0.25);
+}
+
+.am-header-logo-svg {
+  width: 26px;
+  height: 26px;
+  display: block;
 }
 
 .am-header-title {
-  font-size: 22px;
-  color: #2c4c4c;
-  font-weight: 500;
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
   line-height: 1.2;
   font-family: Georgia, serif;
+}
+
+.am-brand-name {
+  font-size: 23px;
+  color: #0F5C5E;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+
+.am-brand-tagline {
+  font-size: 15px;
+  color: #64748b;
+  font-weight: 500;
 }
 
 /* ─────────────────────────────────────────
