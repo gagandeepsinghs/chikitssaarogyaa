@@ -1,0 +1,110 @@
+.specialities {
+  background-color: var(--color-bg);
+}
+
+.section-header {
+  margin-bottom: 60px;
+}
+
+.speciality-card {
+  background-color: var(--color-white);
+  border-radius: var(--radius-lg);
+  padding: 40px 32px;
+  box-shadow: var(--shadow-subtle);
+  transition: var(--transition-smooth);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid transparent;
+}
+
+.speciality-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+
+.speciality-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-hover);
+  border-color: rgba(243, 181, 167, 0.3);
+}
+
+.speciality-card:hover::before {
+  transform: scaleX(1);
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 32px;
+}
+
+.speciality-id {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  color: var(--color-bg-secondary);
+  line-height: 1;
+  font-weight: 700;
+  transition: var(--transition-smooth);
+}
+
+.speciality-card:hover .speciality-id {
+  color: var(--color-premium);
+}
+
+.speciality-icon {
+  color: var(--color-primary);
+  background-color: var(--color-bg-secondary);
+  padding: 16px;
+  border-radius: var(--radius-md);
+  transition: var(--transition-smooth);
+}
+
+.speciality-card:hover .speciality-icon {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.speciality-title {
+  margin-bottom: 16px;
+}
+
+.speciality-desc {
+  color: var(--color-body);
+  flex-grow: 1;
+  margin-bottom: 24px;
+}
+
+.speciality-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: var(--transition-smooth);
+}
+
+.speciality-link .arrow {
+  transition: transform 0.3s ease;
+}
+
+.speciality-card:hover .speciality-link {
+  color: var(--color-premium);
+}
+
+.speciality-card:hover .arrow {
+  transform: translateX(4px);
+}

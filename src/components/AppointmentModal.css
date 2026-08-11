@@ -1,0 +1,683 @@
+.appointment-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(8, 63, 65, 0.95);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s ease;
+}
+
+.appointment-modal-overlay.animation,
+.appointment-modal-overlay.form,
+.appointment-modal-overlay.success {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  color: #0F5C5E;
+  cursor: pointer;
+  z-index: 1010;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+}
+
+.modal-close-btn:hover {
+  transform: scale(1.1);
+  background-color: #F8FAFC;
+  color: #D9534F;
+}
+
+/* Video Animation Stage */
+.logo-animation-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeOut 0.5s ease 4.5s forwards;
+  z-index: 2;
+  background-color: transparent;
+}
+
+.logo-video-anim {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 2;
+  animation: logoReveal 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes logoReveal {
+  0% { opacity: 0; transform: scale(0.9) translateY(20px); filter: blur(10px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+}
+
+@keyframes fadeOut {
+  to { opacity: 0; visibility: hidden; }
+}
+
+/* 2-Column Layout */
+.appointment-layout {
+  background-color: #FAFAFA;
+  border-radius: 0;
+  width: 100vw;
+  max-width: none;
+  box-shadow: none;
+  display: flex;
+  overflow: hidden;
+  height: 100vh;
+  max-height: none;
+  animation: fadeInStep 0.4s ease forwards;
+}
+
+/* LEFT COLUMN: Booking Wizard */
+.booking-wizard {
+  flex: 1;
+  padding: 32px 48px;
+  background-color: #FFFFFF;
+  overflow-y: auto;
+  position: relative;
+}
+
+.booking-wizard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://images.unsplash.com/photo-1519689680058-324335c77eba?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'); /* Soft mother & baby background */
+  background-size: cover;
+  background-position: center;
+  opacity: 0.08;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Ensure content stays above the watermark */
+.stepper-header, .step-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Stepper */
+.stepper-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  position: relative;
+  width: 100%;
+}
+
+.step-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  z-index: 2;
+  flex: 1;
+}
+
+.step-connector {
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  width: 100%;
+  height: 2px;
+  background-color: #E0E0E0;
+  z-index: -1;
+}
+
+.step-circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #E0E0E0;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.step-label {
+  font-size: 0.8rem;
+  color: #999;
+  font-weight: 600;
+}
+
+.step-indicator.active .step-circle {
+  background-color: #5BA773; /* Match the green in screenshot */
+}
+
+.step-indicator.active .step-label {
+  color: #5BA773;
+}
+
+.step-indicator.active .step-connector {
+  background-color: #5BA773;
+}
+
+/* Step Content */
+.step-title {
+  font-family: var(--font-heading);
+  color: var(--color-heading);
+  font-size: 1.5rem;
+  margin-bottom: 24px;
+}
+
+.dept-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.dept-card {
+  border: 1px solid #E0E0E0;
+  border-radius: 12px;
+  padding: 32px 24px;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.dept-card:hover {
+  border-color: #5BA773;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.dept-icon {
+  font-size: 2rem;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.dept-card h4 {
+  color: var(--color-heading);
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+.dept-card p {
+  color: var(--color-body);
+  font-size: 0.9rem;
+}
+
+/* Doctor Profile Card (Step 2) */
+.doctor-profile-card {
+  border: 1px solid #E0E0E0;
+  border-radius: 8px;
+  padding: 24px;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.doctor-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: #F0F4F4;
+  margin: 0 auto 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.doctor-name {
+  color: #4A90E2; /* Blue color from screenshot */
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+.doctor-title {
+  color: var(--color-body);
+  font-size: 0.9rem;
+}
+
+/* Schedule Info */
+.schedule-info {
+  margin-bottom: 24px;
+}
+
+.schedule-title {
+  color: #666;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.schedule-text {
+  color: #888;
+  font-size: 0.85rem;
+  margin-bottom: 4px;
+}
+
+/* Date Selection Area */
+.selected-day {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+}
+
+.date-format-hint {
+  color: #999;
+  font-size: 0.8rem;
+  margin-bottom: 16px;
+}
+
+.date-time-row {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  margin-bottom: 32px;
+}
+
+.custom-date-input {
+  display: flex;
+  align-items: center;
+  border: 1px solid #E0E0E0;
+  border-radius: 4px;
+  overflow: hidden;
+  width: 220px;
+  flex-shrink: 0;
+}
+
+.custom-date-input input {
+  border: none;
+  padding: 10px 12px;
+  flex: 1;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.custom-date-input input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.calendar-btn {
+  background-color: #5BA773;
+  padding: 10px 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.time-selection {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.select-label {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.time-pills-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.docterz-time-pill {
+  background: none;
+  border: 1px solid #D9534F; /* Red border from screenshot */
+  color: #D9534F;
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.docterz-time-pill:hover,
+.docterz-time-pill.selected {
+  background-color: #D9534F;
+  color: white;
+}
+
+.step-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.btn-proceed {
+  background-color: #7B9ECC; /* Light blue proceed button */
+  color: white;
+  padding: 10px 32px;
+  border-radius: 4px;
+  border: none;
+  font-weight: 500;
+}
+
+.btn-proceed:hover {
+  background-color: #5A82B8;
+}
+
+/* Forms (Step 3 & 4) */
+.form-group label {
+  display: block;
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 6px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #E0E0E0;
+  border-radius: 4px;
+  font-size: 0.95rem;
+}
+
+.mt-3 {
+  margin-top: 16px;
+}
+
+.confirmation-summary p {
+  margin-bottom: 12px;
+  color: #444;
+}
+
+/* RIGHT COLUMN: Contact Sidebar */
+.contact-sidebar {
+  width: 400px;
+  flex-shrink: 0;
+  background-color: #F8FAFC;
+  border-left: 1px solid #E2E8F0;
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-header {
+  padding: 24px;
+  text-align: center;
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.contact-header h4 {
+  color: #0F5C5E;
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.contact-subtitle {
+  color: #64748B;
+  font-size: 0.9rem;
+}
+
+.sidebar-scroll-content {
+  overflow-y: auto;
+  flex: 1;
+}
+
+.clinic-gallery-wrapper {
+  padding: 24px;
+}
+
+.clinic-gallery {
+  position: relative;
+  height: 220px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.clinic-gallery img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gallery-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 6px;
+  cursor: pointer;
+  display: flex;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.gallery-nav:hover {
+  background: rgba(255, 255, 255, 0.4);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.gallery-nav.prev { left: 12px; }
+.gallery-nav.next { right: 12px; }
+
+.gallery-dots {
+  position: absolute;
+  bottom: 12px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.gallery-dots .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(255,255,255,0.4);
+  transition: all 0.3s ease;
+}
+
+.gallery-dots .dot.active {
+  background-color: white;
+  width: 16px;
+  border-radius: 4px;
+}
+
+.contact-cards-container {
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.contact-card {
+  background-color: #FFFFFF;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  gap: 16px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  border: 1px solid #F1F5F9;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.contact-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.icon-wrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.bg-soft-teal { background-color: #E6F0F0; }
+.bg-soft-blue { background-color: #EBF3FC; }
+
+.contact-card-content {
+  flex: 1;
+}
+
+.clinic-name {
+  font-family: var(--font-body, system-ui, -apple-system, sans-serif);
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: #1E293B;
+  margin-top: 0;
+  margin-bottom: 4px;
+}
+
+.clinic-desc {
+  font-size: 0.85rem;
+  color: #64748B;
+  margin-bottom: 8px;
+}
+
+.clinic-address {
+  font-size: 0.85rem;
+  color: #475569;
+  line-height: 1.4;
+}
+
+.contact-number {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #4A90E2;
+  margin-top: 4px;
+}
+
+
+
+/* Success Stage */
+.success-container {
+  background-color: var(--color-white);
+  border-radius: var(--radius-xl);
+  padding: 60px 40px;
+  text-align: center;
+  max-width: 500px;
+  box-shadow: var(--shadow-modal);
+}
+
+.success-icon-wrapper {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: rgba(15, 92, 94, 0.1);
+  color: var(--color-primary);
+  margin-bottom: 24px;
+}
+
+.success-container h2 {
+  font-family: var(--font-heading);
+  color: var(--color-heading);
+  font-size: 2.2rem;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 1024px) {
+  .appointment-layout {
+    max-width: none;
+  }
+  .booking-wizard {
+    padding: 24px;
+  }
+  .contact-sidebar {
+    width: 320px;
+  }
+}
+
+@media (max-width: 850px) {
+  .appointment-layout {
+    flex-direction: column;
+    overflow-y: auto;
+    max-height: none;
+  }
+  .contact-sidebar {
+    width: 100%;
+    border-left: none;
+    border-top: 1px solid #E0E0E0;
+  }
+  .date-time-row {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .stepper-header {
+    max-width: 100%;
+    margin-bottom: 24px;
+  }
+}
+
+@media (max-width: 600px) {
+  .appointment-modal-overlay {
+    padding: 0;
+  }
+  .booking-wizard {
+    padding: 16px;
+  }
+  .step-label {
+    display: none;
+  }
+  .step-connector {
+    top: 14px;
+  }
+  .dept-grid {
+    grid-template-columns: 1fr;
+  }
+  .form-header h2, .step-title {
+    font-size: 1.5rem;
+  }
+  .custom-date-input {
+    width: 100%;
+  }
+  .time-pills-container {
+    justify-content: flex-start;
+  }
+  .step-actions {
+    flex-direction: column-reverse;
+  }
+  .btn-proceed {
+    width: 100%;
+    text-align: center;
+  }
+}

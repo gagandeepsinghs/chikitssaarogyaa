@@ -1,0 +1,80 @@
+.contact-section {
+  background-color: var(--color-bg-secondary);
+}
+
+.contact-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+}
+
+.contact-info h2 {
+  margin-bottom: 16px;
+}
+
+.contact-desc {
+  margin-bottom: 40px;
+}
+
+.contact-details {
+  display: grid;
+  gap: 32px;
+  margin-bottom: 40px;
+}
+
+.contact-item {
+  display: flex;
+  gap: 20px;
+}
+
+.contact-icon {
+  background-color: var(--color-white);
+  color: var(--color-primary);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-subtle);
+}
+
+.contact-item h4 {
+  margin-bottom: 4px;
+  font-size: 1.1rem;
+}
+
+.contact-item p {
+  margin: 0;
+  color: var(--color-body);
+  font-size: 0.95rem;
+}
+
+.contact-actions {
+  display: flex;
+  gap: 16px;
+}
+
+.contact-map {
+  width: 100%;
+  height: 100%;
+  min-height: 500px;
+}
+
+.map-placeholder {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-modal);
+}
+
+@media (max-width: 1024px) {
+  .contact-container {
+    grid-template-columns: 1fr;
+  }
+  .contact-map {
+    min-height: 400px;
+  }
+}

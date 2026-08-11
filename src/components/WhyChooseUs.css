@@ -1,0 +1,150 @@
+.why-choose-us {
+  padding: 100px 0;
+  background-color: var(--color-bg-secondary);
+  overflow: hidden;
+}
+
+.why-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.why-visual {
+  position: relative;
+}
+
+.why-image-wrapper {
+  position: relative;
+  border-radius: var(--radius-xl);
+  padding-right: 32px;
+  padding-bottom: 32px;
+}
+
+.why-image-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 32px;
+  left: 32px;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-primary);
+  border-radius: var(--radius-xl);
+  z-index: 1;
+  opacity: 0.1;
+}
+
+.why-img {
+  position: relative;
+  z-index: 2;
+  border-radius: var(--radius-xl);
+  width: 100%;
+  aspect-ratio: 4/5;
+  object-fit: cover;
+  box-shadow: var(--shadow-modal);
+}
+
+.why-experience-badge {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: var(--color-premium);
+  color: var(--color-white);
+  padding: 32px;
+  border-radius: 50%;
+  width: 160px;
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+  text-align: center;
+  box-shadow: var(--shadow-hover);
+  transform: translate(20%, 20%);
+}
+
+.why-experience-badge .years {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.why-experience-badge .text {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.why-content h2 {
+  margin-bottom: 24px;
+}
+
+.why-desc {
+  margin-bottom: 40px;
+  font-size: 1.125rem;
+}
+
+.why-features {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+
+.why-feature {
+  display: flex;
+  gap: 20px;
+}
+
+.why-feature-icon {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  background-color: var(--color-white);
+  color: var(--color-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-subtle);
+}
+
+.why-feature-text h4 {
+  margin-bottom: 8px;
+  font-size: 1.2rem;
+}
+
+.why-feature-text p {
+  color: var(--color-body);
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 1024px) {
+  .why-container {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+  
+  .why-visual {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .why-experience-badge {
+    width: 120px;
+    height: 120px;
+    padding: 20px;
+  }
+  .why-experience-badge .years {
+    font-size: 1.8rem;
+  }
+  .why-experience-badge .text {
+    font-size: 0.75rem;
+  }
+}
