@@ -1,0 +1,225 @@
+/* StickyActions.css */
+
+/* --- Desktop/Laptop Layout (Fixed on the Right) --- */
+.sticky-actions-desktop {
+  position: fixed;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 999;
+  /* Under active modals but floats above normal page contents */
+  display: flex;
+  flex-direction: row-reverse;
+  /* FAB icon on the far right, menu expands left */
+  align-items: center;
+  /* Horizontally align FAB and slide-out menu */
+  gap: 16px;
+  pointer-events: auto;
+}
+
+/* Circular Floating Action Button (FAB) */
+.sticky-fab-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-dark) 100%);
+  color: var(--color-white);
+  border: 2px solid var(--color-orange-accent, #d66b45);
+  /* Premium orange border */
+  box-shadow: 0 8px 30px rgba(15, 92, 94, 0.3), 0 0 0 4px rgba(214, 107, 69, 0.15);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  flex-shrink: 0;
+  outline: none;
+}
+
+.sticky-fab-btn:hover {
+  transform: scale(1.08) rotate(15deg);
+  box-shadow: 0 10px 35px rgba(15, 92, 94, 0.4), 0 0 0 6px rgba(214, 107, 69, 0.25);
+  background: linear-gradient(135deg, var(--color-dark) 0%, var(--color-primary) 100%);
+}
+
+.sticky-fab-btn.active {
+  transform: rotate(90deg);
+  background: #334142;
+  /* Dark slate on active close state */
+  border-color: #cbd5e1;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Slide-out / Fade-in Actions Menu */
+.desktop-actions-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(20px) scale(0.95);
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  pointer-events: none;
+}
+
+.desktop-actions-menu.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0) scale(1);
+  pointer-events: auto;
+}
+
+/* Option Buttons inside menu */
+.sticky-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  border: none;
+  border-left: 3px solid var(--color-orange-accent, #d66b45);
+  /* Subtle orange left border */
+  cursor: pointer;
+  box-shadow: var(--shadow-hover);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  white-space: nowrap;
+}
+
+.sticky-action-btn .icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+/* Primary Button Styling (Book Appointment) */
+.sticky-action-btn.primary-btn {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-dark) 100%);
+  color: var(--color-white);
+  border: 1px solid rgba(15, 92, 94, 0.1);
+  border-left: 3px solid var(--color-orange-accent, #d66b45);
+}
+
+.sticky-action-btn.primary-btn .icon-wrapper {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: var(--color-white);
+}
+
+.sticky-action-btn.primary-btn:hover {
+  transform: translateX(-4px) scale(1.02);
+  box-shadow: 0 8px 24px rgba(15, 92, 94, 0.25), 0 0 0 2px var(--color-orange-accent, #d66b45);
+}
+
+/* Secondary Button Styling (Get Directions) */
+.sticky-action-btn.secondary-btn {
+  background-color: var(--color-bg-secondary);
+  color: var(--color-primary);
+  border: 1px solid rgba(15, 92, 94, 0.15);
+  border-left: 3px solid var(--color-orange-accent, #d66b45);
+}
+
+.sticky-action-btn.secondary-btn .icon-wrapper {
+  background-color: rgba(15, 92, 94, 0.1);
+  color: var(--color-primary);
+}
+
+.sticky-action-btn.secondary-btn:hover {
+  transform: translateX(-4px) scale(1.02);
+  background-color: #dcedea;
+  box-shadow: 0 8px 24px rgba(15, 92, 94, 0.15), 0 0 0 2px var(--color-orange-accent, #d66b45);
+}
+
+.sticky-action-btn.secondary-btn:hover .icon-wrapper {
+  color: var(--color-orange-accent, #d66b45);
+}
+
+/* --- Mobile Layout (Sticky bottom bar) --- */
+.sticky-actions-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+
+
+
+  .sticky-actions-mobile {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--color-white);
+    padding: 12px 16px;
+    box-shadow: 0 -6px 24px rgba(8, 63, 65, 0.08);
+    z-index: 1001;
+    /* Make sure it lies above content but below overlays */
+    gap: 10px;
+    align-items: center;
+    border-top: 3px solid var(--color-orange-accent, #d66b45);
+    display: none;
+    /* Orange accent stripe */
+  }
+
+  .mobile-action-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 8px;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    height: 46px;
+  }
+
+  /* Call Action Button */
+  .mobile-action-item.call-action {
+    flex: 0 0 25%;
+    background-color: var(--color-bg);
+    color: var(--color-dark);
+    border: 1px solid rgba(8, 63, 65, 0.15);
+  }
+
+  .mobile-action-item.call-action:active {
+    background-color: #f1f0eb;
+    transform: scale(0.97);
+  }
+
+  /* Book Online Button */
+  .mobile-action-item.book-action {
+    flex: 1;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-dark) 100%);
+    color: var(--color-white);
+    border: 1px solid rgba(15, 92, 94, 0.1);
+  }
+
+  .mobile-action-item.book-action:active {
+    transform: scale(0.97);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Directions Button */
+  .mobile-action-item.directions-action {
+    flex: 0 0 32%;
+    background-color: var(--color-bg-secondary);
+    color: var(--color-primary);
+    border: 1px solid rgba(15, 92, 94, 0.15);
+  }
+
+  .mobile-action-item.directions-action:active {
+    background-color: #dcedea;
+    transform: scale(0.97);
+  }
+}

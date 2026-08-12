@@ -1,0 +1,125 @@
+/* ─────────────────────────────────────────
+   TRUST STRIP — compact horizontal bar
+───────────────────────────────────────── */
+.trust-strip {
+  background: linear-gradient(135deg, #0f3f3f 0%, #0F5C5E 60%, #1a6b6d 100%);
+  border-bottom: 3px solid var(--color-orange-accent, #d66b45);
+  padding: 0;
+}
+
+.trust-strip-inner {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 16px 24px;
+  flex-wrap: wrap;
+}
+
+/* Left label */
+.trust-strip-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Vertical divider between label and stats */
+.trust-strip-divider {
+  width: 1px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.15);
+  flex-shrink: 0;
+}
+
+/* Stats row */
+.trust-strip-stats {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex: 1;
+  flex-wrap: wrap;
+}
+
+/* Single stat item */
+.trust-stat-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 20px;
+  transition: background 0.2s ease;
+  cursor: default;
+  border-radius: 8px;
+}
+
+.trust-stat-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.trust-stat-icon {
+  color: var(--color-orange-accent, #d66b45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.trust-stat-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.trust-stat-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+.trust-stat-subtitle {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.55);
+  white-space: nowrap;
+}
+
+/* Thin vertical separator between stats */
+.trust-stat-sep {
+  width: 1px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.12);
+  flex-shrink: 0;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 1024px) {
+  .trust-strip-inner {
+    gap: 16px;
+    padding: 14px 20px;
+  }
+  .trust-stat-item {
+    padding: 6px 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .trust-strip-label,
+  .trust-strip-divider {
+    display: none;
+  }
+  .trust-strip-inner {
+    justify-content: center;
+    padding: 12px 16px;
+  }
+  .trust-strip-stats {
+    justify-content: center;
+  }
+  .trust-stat-sep {
+    display: none;
+  }
+  .trust-stat-item {
+    padding: 6px 10px;
+  }
+}

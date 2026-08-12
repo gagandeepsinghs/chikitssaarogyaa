@@ -1,21 +1,19 @@
 import React, { useState } from 'react';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import TrustStrip from './components/TrustStrip';
-import Specialities from './components/Specialities';
-import WhyChooseUs from './components/WhyChooseUs';
-import Doctors from './components/Doctors';
-import ChildDevelopment from './components/ChildDevelopment';
-import Timeline from './components/Timeline';
-import Certifications from './components/Certifications';
-import Testimonials from './components/Testimonials';
-import ClinicVideo from './components/ClinicVideo';
-import AppointmentModal from './components/AppointmentModal';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
-import Chatbot from './components/Chatbot';
-import About from './components/About';
-import ScrollToTop from './components/ScrollToTop';
+
+// Layout shell components (reusable across pages)
+import Navbar from './components/Navbar/Navbar';
+import Footer from './components/Footer/Footer';
+
+// Page sections (used only here as shell wrappers)
+import Hero from './sections/Hero/Hero';
+
+// Global utilities & overlays
+import AppointmentModal from './components/AppointmentModal/AppointmentModal';
+import ScrollToTop from './components/ScrollToTop/ScrollToTop';
+import StickyActions from './components/StickyActions/StickyActions';
+
+// Pages
+import HomePage from './pages/HomePage';
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -25,26 +23,23 @@ function App() {
 
   return (
     <div className="app-container">
+      {/* Layout Shell */}
       <Navbar onBookAppointment={openModal} />
       <Hero onBookAppointment={openModal} />
-      <TrustStrip />
-      <About />
-      <Specialities />
-      <WhyChooseUs />
-      <Doctors onBookAppointment={openModal} />
-      <ChildDevelopment />
-      <Timeline />
-      <Certifications />
-      <Testimonials />
-      <ClinicVideo />
-      <Contact />
+
+      {/* Page Content */}
+      <HomePage onBookAppointment={openModal} />
+
+      {/* Layout Shell */}
       <Footer />
-      
+
+      {/* Global Utilities & Overlays */}
       {isModalOpen && <AppointmentModal onClose={closeModal} />}
-      {!isModalOpen && <Chatbot />}
       {!isModalOpen && <ScrollToTop />}
+      <StickyActions onBookAppointment={openModal} />
     </div>
   );
 }
 
 export default App;
+

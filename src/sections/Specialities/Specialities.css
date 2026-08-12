@@ -1,0 +1,125 @@
+.specialities {
+  background-color: var(--color-bg);
+}
+
+.section-header {
+  margin-bottom: 60px;
+}
+
+.speciality-card {
+  background-color: var(--color-white);
+  border-radius: var(--radius-lg);
+  padding: 36px 28px;
+  box-shadow: 0 4px 20px rgba(140, 160, 130, 0.04);
+  transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  border: 1.5px solid #e6ece0;
+  cursor: pointer;
+  user-select: none;
+}
+
+.speciality-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: var(--color-orange-accent, #d66b45);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+
+.speciality-card:hover,
+.speciality-card.active {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(15, 92, 94, 0.12);
+  border-color: var(--color-orange-accent, #d66b45);
+}
+
+.speciality-card:hover::before,
+.speciality-card.active::before {
+  transform: scaleX(1);
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 28px;
+}
+
+.speciality-id {
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  color: var(--color-orange-accent, #d66b45); /* Clearly visible gold/orange color */
+  line-height: 1;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  opacity: 0.85;
+}
+
+.speciality-card:hover .speciality-id,
+.speciality-card.active .speciality-id {
+  color: var(--color-orange-accent, #d66b45);
+  opacity: 1;
+  transform: scale(1.08);
+}
+
+.speciality-icon {
+  color: var(--color-primary);
+  background-color: #f1f6ed;
+  padding: 14px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.speciality-card:hover .speciality-icon,
+.speciality-card.active .speciality-icon {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.speciality-title {
+  margin-bottom: 12px;
+  font-size: 1.25rem;
+  color: var(--color-heading);
+}
+
+.speciality-desc {
+  color: var(--color-body);
+  flex-grow: 1;
+  margin-bottom: 24px;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.speciality-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.speciality-link .arrow {
+  transition: transform 0.3s ease;
+}
+
+.speciality-card:hover .speciality-link,
+.speciality-card.active .speciality-link {
+  color: var(--color-orange-accent, #d66b45);
+}
+
+.speciality-card:hover .arrow,
+.speciality-card.active .arrow {
+  transform: translateX(4px);
+}

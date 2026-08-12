@@ -1,0 +1,605 @@
+/* ─────────────────────────────────────────
+   ABOUT US SECTION
+───────────────────────────────────────── */
+.about-section {
+  padding: 38px 0 42px;
+  background-color: #FAFBF9;
+  border-bottom: 1.5px solid #e5ebd7;
+}
+
+.about-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
+
+/* ─── Header ─── */
+.about-subheading {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #3f5d50;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.about-title {
+  font-size: 40px;
+  font-family: Georgia, serif;
+  color: #233e30;
+  margin: 0 0 20px;
+  font-weight: 500;
+}
+
+.about-desc {
+  font-size: 16.5px;
+  color: #64748b;
+  max-width: 720px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ─────────────────────────────────────────
+   TABS NAVIGATION — Premium Redesign
+───────────────────────────────────────── */
+.about-tabs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  margin: 36px auto;
+  max-width: 700px;
+  background: #ffffff;
+  padding: 8px;
+  border-radius: 50px;
+  border: 1.5px solid #e2ebd7;
+  box-shadow: 0 4px 24px rgba(15, 92, 94, 0.07), 0 1px 4px rgba(0,0,0,0.04);
+}
+
+.about-tab-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 13px 20px;
+  border: none;
+  background: transparent;
+  color: #8a9bab;
+  font-size: 14.5px;
+  font-weight: 600;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+  font-family: var(--font-body, system-ui, -apple-system, sans-serif);
+  white-space: nowrap;
+  position: relative;
+  letter-spacing: 0.1px;
+}
+
+.about-tab-btn svg {
+  flex-shrink: 0;
+  transition: color 0.25s ease;
+  color: #b0bec5;
+}
+
+.about-tab-btn:hover {
+  color: #233e30;
+  background: rgba(15, 92, 94, 0.05);
+}
+
+.about-tab-btn:hover svg {
+  color: #0F5C5E;
+}
+
+.about-tab-btn.active {
+  background: linear-gradient(135deg, #0f4c4e 0%, #0F5C5E 100%);
+  color: #ffffff;
+  box-shadow: 0 6px 20px rgba(15, 92, 94, 0.3), 0 2px 6px rgba(15, 92, 94, 0.2);
+  transform: translateY(-1px);
+}
+
+.about-tab-btn.active svg {
+  color: var(--color-orange-accent, #d66b45);
+}
+
+.about-tab-btn.active:hover {
+  background: linear-gradient(135deg, #0d4446 0%, #0e5456 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(15, 92, 94, 0.35);
+}
+
+/* ─────────────────────────────────────────
+   PANEL TRANSITION
+───────────────────────────────────────── */
+.animate-fade-in {
+  animation: aboutFadeIn 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+@keyframes aboutFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─────────────────────────────────────────
+   1. OVERVIEW & VALUES PANEL
+───────────────────────────────────────── */
+.overview-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.overview-card {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 4px 20px rgba(140, 160, 130, 0.02);
+  margin-bottom: 24px;
+}
+
+.overview-card h3 {
+  font-size: 22px;
+  font-family: Georgia, serif;
+  color: #233e30;
+  margin: 0 0 16px;
+  font-weight: 500;
+}
+
+.overview-card p {
+  font-size: 15.5px;
+  color: #64748b;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.mission-card {
+  background: rgba(15, 92, 94, 0.03);
+  border-color: rgba(15, 92, 94, 0.15);
+}
+
+.mission-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.mission-icon {
+  color: #0F5C5E;
+}
+
+/* ─── Core Values ─── */
+.values-container {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 4px 20px rgba(140, 160, 130, 0.02);
+}
+
+.values-container h3 {
+  font-size: 22px;
+  font-family: Georgia, serif;
+  color: #233e30;
+  margin: 0 0 24px;
+  font-weight: 500;
+}
+
+.values-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.value-item {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.value-bullet {
+  width: 28px;
+  height: 28px;
+  background: rgba(214, 107, 69, 0.08);
+  color: var(--color-orange-accent, #d66b45);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.value-text h4 {
+  font-size: 16.5px;
+  color: #233e30;
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+
+.value-text p {
+  font-size: 14px;
+  color: #64748b;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ─────────────────────────────────────────
+   2. OUR JOURNEY PANEL
+───────────────────────────────────────── */
+.journey-intro {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.journey-intro h3 {
+  font-size: 28px;
+  font-family: Georgia, serif;
+  color: #233e30;
+  margin: 0 0 10px;
+  font-weight: 500;
+}
+
+.journey-intro p {
+  font-size: 15.5px;
+  color: #64748b;
+  margin: 0;
+}
+
+/* ─── Accordion ─── */
+.about-accordion {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.accordion-item {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.01);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.accordion-item:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 6px 20px rgba(140, 160, 130, 0.06);
+}
+
+.accordion-item.active {
+  border-color: var(--color-primary);
+  box-shadow: 0 8px 25px rgba(15, 92, 94, 0.08);
+}
+
+.accordion-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.accordion-period {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.9rem;
+  background: rgba(15, 92, 94, 0.08);
+  color: var(--color-primary);
+  padding: 4px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.accordion-item.active .accordion-period {
+  background: var(--color-orange-accent, #d66b45);
+  color: #fff;
+}
+
+.accordion-title {
+  font-family: Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: #233e30;
+}
+
+.accordion-icon-toggle {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #64748b;
+  transition: transform 0.3s ease;
+  width: 24px;
+  text-align: center;
+  user-select: none;
+}
+
+.accordion-item.active .accordion-icon-toggle {
+  color: var(--color-orange-accent, #d66b45);
+  transform: rotate(180deg);
+}
+
+/* Accordion collapse animation */
+.accordion-collapse {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.accordion-collapse.show {
+  max-height: 1000px;
+}
+
+.accordion-body {
+  padding: 0 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border-top: 1px dashed #f1f5f9;
+  padding-top: 20px;
+}
+
+.accordion-milestone {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.milestone-badge {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: var(--color-orange-accent, #d66b45);
+  background: rgba(214, 107, 69, 0.08);
+  padding: 4px 10px;
+  border-radius: 6px;
+  min-width: 80px;
+  text-align: center;
+}
+
+.milestone-content h5 {
+  font-family: Georgia, serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #233e30;
+  margin-bottom: 6px;
+}
+
+.milestone-content p {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: #64748b;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ─── Philosophy Callout ─── */
+.about-phil-callout {
+  background: #233e30;
+  color: #fff;
+  border-radius: 20px;
+  padding: 50px 40px;
+  text-align: center;
+  max-width: 900px;
+  margin: 60px auto 0;
+  box-shadow: 0 10px 30px rgba(35, 62, 48, 0.15);
+}
+
+.phil-label {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #a7f3d0;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.phil-title {
+  font-size: 32px;
+  font-family: Georgia, serif;
+  color: #fff;
+  margin: 0 0 36px;
+  font-weight: 500;
+}
+
+.phil-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 36px;
+}
+
+.phil-item h5 {
+  font-size: 18px;
+  font-family: Georgia, serif;
+  color: #a7f3d0;
+  margin: 0 0 10px;
+  font-weight: 500;
+}
+
+.phil-item p {
+  font-size: 14px;
+  color: #94a3b8;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ─────────────────────────────────────────
+   3. FOUNDERS & TEAM PANEL
+───────────────────────────────────────── */
+.team-section {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.team-section-title {
+  font-size: 26px;
+  font-family: Georgia, serif;
+  color: #233e30;
+  text-align: center;
+  margin: 0 0 36px;
+  font-weight: 500;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+  justify-content: center;
+}
+
+.team-member-card {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+  text-align: center;
+  padding: 32px 24px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.team-member-card:hover {
+  transform: translateY(-5px);
+  border-color: #cbd5e1;
+  box-shadow: 0 10px 30px rgba(140, 160, 130, 0.1);
+}
+
+.member-img-wrap {
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 24px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 5px solid #eaebe6;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.3s;
+}
+
+.team-member-card:hover .member-img-wrap {
+  border-color: #0F5C5E;
+}
+
+.member-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.member-info h4 {
+  font-size: 19px;
+  font-family: Georgia, serif;
+  color: #233e30;
+  margin: 0 0 6px;
+  font-weight: 600;
+}
+
+.member-role {
+  font-size: 14.5px;
+  color: #0F5C5E;
+  font-weight: 600;
+  margin: 0;
+}
+
+.member-desc {
+  font-size: 13px;
+  color: #64748b;
+  line-height: 1.5;
+  margin: 12px 0 0;
+  border-top: 1px solid #f1f5f9;
+  padding-top: 12px;
+}
+
+/* ─────────────────────────────────────────
+   RESPONSIVE DESIGN
+───────────────────────────────────────── */
+@media (max-width: 991px) {
+  .overview-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .phil-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding-top: 24px;
+  }
+  .about-phil-callout {
+    padding: 36px 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-title {
+    font-size: 32px;
+  }
+  .about-tabs {
+    flex-direction: column;
+    border-radius: 24px;
+    padding: 8px;
+    max-width: 340px;
+  }
+  .about-tab-btn {
+    padding: 12px 16px;
+    width: 100%;
+    justify-content: flex-start;
+  }
+  
+  /* Accordion Mobile */
+  .accordion-header {
+    padding: 16px 20px;
+    gap: 12px;
+  }
+  
+  .accordion-title {
+    font-size: 1rem;
+  }
+  
+  .accordion-period {
+    font-size: 0.8rem;
+    padding: 2px 8px;
+  }
+
+  .accordion-body {
+    padding: 0 20px 20px;
+  }
+
+  .accordion-milestone {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .milestone-badge {
+    min-width: 70px;
+    align-self: flex-start;
+  }
+  
+  /* Team Mobile */
+  .team-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
